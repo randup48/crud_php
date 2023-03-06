@@ -15,10 +15,22 @@ class Home extends BaseController
 
     public function index()
     {
-        $pegawai = $this->modelPegawai->findAll();
+
+        $pegawai = $this->modelPegawai;
+        $currentPage = $this->request->getVar('page_listPegawai') ? $this->request->getVar('page_listPegawai') : 1;
+
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $match = $this->modelPegawai->search($keyword);
+        } else {
+            $match = $this->modelPegawai;
+        }
+
 
         $data = [
-            'listPegawai' => $pegawai
+            'listPegawai' => $match->paginate(2, 'listPegawai'),
+            'pager' => $pegawai->pager,
+            'currentPage' => $currentPage,
         ];
 
         return view('pages/list_table', $data);

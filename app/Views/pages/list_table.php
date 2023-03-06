@@ -13,6 +13,13 @@
     </a>
   </section>
 
+  <form action="" method="post">
+    <div class="input-group my-3">
+      <input type="text" class="form-control" placeholder="Cari data user..." aria-label="Recipient's username" aria-describedby="button-addon2" name="keyword">
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2" name="submit">Cari</button>
+    </div>
+  </form>
+
   <!-- notif sukses -->
   <?php if (session()->getFlashdata('pesan')) : ?>
     <div class="success alert alert-success" role="alert">
@@ -33,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i = 1; ?>
+      <?php $i = 1 + (2 * ($currentPage - 1)); ?>
       <?php foreach ($listPegawai as $pegawai) : ?>
         <tr>
           <td><?= $i++; ?></td>
@@ -56,19 +63,7 @@
     </tbody>
   </table>
 
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-end">
-      <li class="page-item disabled">
-        <a class="page-link">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <?= $pager->links('listPegawai', 'pegawai_pagination') ?>
 
 
   <!-- Modal -->
